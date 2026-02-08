@@ -43,6 +43,13 @@ public static class ImageGenerator
     {
         string fontPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fonts", "Verdana.ttf");
 
+        if (!File.Exists(fontPath))
+        {
+            Console.WriteLine($"--- FONT NOT FOUND AT: {fontPath}");
+            fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Fonts", "Verdana.ttf");
+            Console.WriteLine($"--- TRYING ALTERNATE PATH: {fontPath} (Exists: {File.Exists(fontPath)})");
+        }
+
         using var typeface = File.Exists(fontPath)
             ? SKTypeface.FromFile(fontPath)
             : SKTypeface.Default;
@@ -50,10 +57,7 @@ public static class ImageGenerator
         using var font = new SKFont(typeface, size);
         using var paint = new SKPaint { IsAntialias = true };
 
-        if (text.Length > 20)
-        {
-            text = text.Substring(0, 17) + "...";
-        }
+        if (text.Length > 20) text = text.Substring(0, 17) + "...";
 
         paint.Color = SKColors.Black.WithAlpha(180);
         canvas.DrawText(text, x + 2, y + 2, SKTextAlign.Center, font, paint);
