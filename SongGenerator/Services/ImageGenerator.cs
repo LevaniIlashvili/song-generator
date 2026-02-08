@@ -41,13 +41,10 @@ public static class ImageGenerator
 
     private static void DrawTextWithShadow(SKCanvas canvas, string text, float x, float y, int size, bool bold)
     {
-        using var typeface = SKTypeface.FromFamilyName("Verdana", bold ? SKFontStyle.Bold : SKFontStyle.Normal);
+        using var typeface = SKTypeface.FromFamilyName("sans-serif", bold ? SKFontStyle.Bold : SKFontStyle.Normal);
         using var font = new SKFont(typeface, size);
 
-        using var paint = new SKPaint
-        {
-            IsAntialias = true,
-        };
+        using var paint = new SKPaint { IsAntialias = true };
 
         paint.Color = SKColors.Black;
         canvas.DrawText(text, x + 2, y + 2, SKTextAlign.Center, font, paint);
