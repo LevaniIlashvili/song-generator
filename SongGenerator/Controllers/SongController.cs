@@ -16,12 +16,12 @@ public class SongController : ControllerBase
 
     [HttpGet]
     public IActionResult GetSongs(
-        [FromQuery] int page,
         [FromQuery] double avgLikes,
+        [FromQuery] int page = 1,
         [FromQuery] long? seed = null,
-        [FromQuery] string? region = "en")
+        [FromQuery] string region = "en")
     {
-        var data = _songService.GenerateBatch(page, 20, region!, avgLikes, seed);
+        var data = _songService.GenerateBatch(page, 20, region, avgLikes, seed);
         return Ok(data);
     }
 
