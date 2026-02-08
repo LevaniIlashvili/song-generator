@@ -41,12 +41,12 @@ public static class ImageGenerator
 
     private static void DrawTextWithShadow(SKCanvas canvas, string text, float x, float y, int size)
     {
-        string fontPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fonts", "verdenai.ttf");
+        string fontPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fonts", "verdanai.ttf");
 
         if (!File.Exists(fontPath))
         {
             Console.WriteLine($"--- FONT NOT FOUND AT: {fontPath}");
-            fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Fonts", "verdenai.ttf");
+            fontPath = Path.Combine(Directory.GetCurrentDirectory(), "Fonts", "verdanai.ttf");
             Console.WriteLine($"--- TRYING ALTERNATE PATH: {fontPath} (Exists: {File.Exists(fontPath)})");
         }
 
