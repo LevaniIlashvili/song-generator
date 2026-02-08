@@ -31,22 +31,31 @@ public static class ImageGenerator
             }
         }
 
-        DrawTextWithShadow(canvas, title, width / 2f, height / 2 - 20, 32, true);
-        DrawTextWithShadow(canvas, artist, width / 2f, height / 2 + 30, 22, false);
+        DrawTextWithShadow(canvas, title, width / 2f, height / 2 - 20, 32);
+        DrawTextWithShadow(canvas, artist, width / 2f, height / 2 + 30, 22);
 
         using var image = surface.Snapshot();
         using var data = image.Encode(SKEncodedImageFormat.Png, 100);
         return data.ToArray();
     }
 
-    private static void DrawTextWithShadow(SKCanvas canvas, string text, float x, float y, int size, bool bold)
+    private static void DrawTextWithShadow(SKCanvas canvas, string text, float x, float y, int size)
     {
-        using var typeface = SKTypeface.FromFamilyName("sans-serif", bold ? SKFontStyle.Bold : SKFontStyle.Normal);
-        using var font = new SKFont(typeface, size);
+        string fontPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fonts", "Verdana.ttf");
 
+        using var typeface = File.Exists(fontPath)
+            ? SKTypeface.FromFile(fontPath)
+            : SKTypeface.Default;
+
+        using var font = new SKFont(typeface, size);
         using var paint = new SKPaint { IsAntialias = true };
 
-        paint.Color = SKColors.Black;
+        if (text.Length > 20)
+        {
+            text = text.Substring(0, 17) + "...";
+        }
+
+        paint.Color = SKColors.Black.WithAlpha(180);
         canvas.DrawText(text, x + 2, y + 2, SKTextAlign.Center, font, paint);
 
         paint.Color = SKColors.White;

@@ -13,4 +13,10 @@
     <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Fonts\VERDANAI.TTF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
